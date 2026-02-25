@@ -1,3 +1,6 @@
+# JavaScript Basics
+
+```javascript
 //Hello World
 console.log("Hello World!")
 
@@ -39,5 +42,6 @@ messageToPrint = "The price for your "+itemName+" is "+price+" dollars"
 messageToPrint2 = `The price for your ${itemName} is ${price} dollars`
 console.log(messageToPrint)
 console.log(messageToPrint2)
+```
 
 
