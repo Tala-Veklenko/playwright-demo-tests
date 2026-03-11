@@ -1,55 +1,47 @@
-import { test } from '@playwright/test'
+import {test} from '@playwright/test'
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:4200/')
-})
-
-test.describe('Charts Suite', () => {
-
-  test.beforeEach(async ({ page }) => {
-    // optional setup
-  })
-
-  test('the first test', async ({ page }) => {
-    await page.getByText('Form Layouts').click()
-  })
-
-  test('navigate to datepicker page', async ({ page }) => {
-    await page.getByText('Datepicker').click()
-  })
-
-})
-
-test.describe('Forms Suite', () => {
-
-  test.beforeEach(async ({ page }) => {
+test.beforeEach(async({page}) => {
+    await page.goto('http://localhost:4200/')
     await page.getByText('Forms').click()
-  })
-
-  test('the first test1', async ({ page }) => {
     await page.getByText('Form Layouts').click()
-  })
+})
 
-  test('navigate to datepicker page1', async ({ page }) => {
-    await page.getByText('Datepicker').click()
-  })
-
-  test('Locator syntax rules', async ({ page }) => {
-
+test('Locator syntax rules', async({page}) => {
+    //by Teg name
     page.locator('input')
-    page.locator('#inputEmail1')
-    page.locator('.shape-rectangle')
-    page.locator('[placeholder="Email"]')
 
+    //by ID
+    await page.locator('#inputEmail1').click()
+
+    //by class value
+    page.locator('.shape-rectangle')
+
+    //by attribute
+    page.locator('[placeholder=Email]')
+
+    //by Class value (full)
     page.locator('[class="input-full-width size-medium status-basic shape-rectangle nb-transition"]')
 
-    page.locator('input[placeholder="Email"].shape-rectangle')
+    //combine different selectors
+    page.locator('input[placeholder=Email][nbinput]')
 
-    page.locator('//*[@id="inputEmail1"]')
-
+    //by partial text match
     page.locator(':text("Using")')
 
+    //by exact text match
     page.locator(':text-is("Using the Grid")')
-  })
 
+})
+
+test('User Facing Locators', async({page}) =>{
+    await page.getByRole('textbox', {name: "Email"}).first().click()
+    await page.getByRole('button', {name: "Sign in"}).first().click()
+
+    await page.getByLabel('Email').first().click() 
+
+    await page.getByPlaceholder('Jane Doe').click()
+
+    await page.getByText('Using the Grid').click()
+
+    await page.getByTitle('IoT Dashboard').click()
 })
